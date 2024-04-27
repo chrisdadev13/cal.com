@@ -316,6 +316,7 @@ model User {
   movedToProfile             Profile?                     @relation("moved_to_profile", fields: [movedToProfileId], references: [id], onDelete: SetNull)
   secondaryEmails            SecondaryEmail[]
   isPlatformManaged          Boolean                      @default(false)
+  contacts                   Contact[]                    @relation("contactOwner")
 
   OutOfOfficeReasons OutOfOfficeReason[]
   smsLockState       SMSLockState        @default(UNLOCKED)
@@ -329,6 +330,33 @@ model User {
   @@index([identityProvider])
   @@index([identityProviderId])
   @@map(name: "users")
+}
+
+model Contact {
+  id       Int    @id @default(autoincrement())
+  name     String
+  username String
+  email    String
+  bio      String
+  slug     String
+
+  checkInFrequency CheckInTime
+  tag              String
+
+  // The user that is the contact
+  userId Int
+
+  createdAt DateTime @default(now())
+
+  // User that created the contact
+  owner   User @relation("contactOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId Int
+}
+
+enum CheckInTime {
+  Rarely
+  Occasionally
+  Often
 }
 
 // It holds Organization Profiles as well as User Profiles for users that have been added to an organization

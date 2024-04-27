@@ -208,6 +208,7 @@ export default function AvailabilityPage() {
         subtitle={t("configure_availability")}
         CTA={
           <div className="flex gap-2">
+            <h1>HolaMundillo</h1>
             <ToggleGroup
               className="hidden md:block"
               defaultValue={searchParams?.get("type") ?? "mine"}

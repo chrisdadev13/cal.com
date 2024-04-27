@@ -14,6 +14,7 @@ import { appsRouter } from "./apps/_router";
 import { authRouter } from "./auth/_router";
 import { availabilityRouter } from "./availability/_router";
 import { bookingsRouter } from "./bookings/_router";
+import { checkInsRouter } from "./checkIns/_router";
 import { deploymentSetupRouter } from "./deploymentSetup/_router";
 import { dsyncRouter } from "./dsync/_router";
 import { eventTypesRouter } from "./eventTypes/_router";
@@ -46,6 +47,7 @@ export const viewerRouter = mergeRouters(
     slots: slotsRouter,
     workflows: workflowsRouter,
     saml: ssoRouter,
+    checkIns: checkInsRouter,
     dsync: dsyncRouter,
     insights: insightsRouter,
     payments: paymentsRouter,
