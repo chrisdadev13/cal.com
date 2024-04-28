@@ -30,7 +30,6 @@ export const create = async ({ ctx, input }: CreateOptions) => {
   const { calUrl, tag, checkInFrequency } = input;
 
   const { username } = extractUsername(calUrl);
-  console.log("Hereeee!");
 
   if (!username) {
     throw new TRPCError({

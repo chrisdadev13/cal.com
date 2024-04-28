@@ -30,7 +30,9 @@ const resolveEndpoint = (links: any) => {
   // - viewer.me - 2 segment paths like this are for logged in requests
   // - viewer.public.i18n - 3 segments paths can be public or authed
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  console.log(links);
   return (ctx: any) => {
+    console.log(ctx);
     const parts = ctx.op.path.split(".");
     let endpoint;
     let path = "";
@@ -80,6 +82,7 @@ export const trpc: CreateTRPCNext<AppRouter, NextPageContext, null> = createTRPC
           condition: (op) => !!op.context.skipBatch,
           // when condition is true, use normal request
           true: (runtime) => {
+            console.log(runtime);
             const links = Object.fromEntries(
               ENDPOINTS.map((endpoint) => [endpoint, httpLink({ url: `${url}/${endpoint}` })(runtime)])
             );

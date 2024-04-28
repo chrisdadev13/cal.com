@@ -33,6 +33,7 @@ export const viewerRouter = mergeRouters(
 
   router({
     loggedInViewerRouter,
+    checkIns: checkInsRouter,
     public: publicViewerRouter,
     auth: authRouter,
     deploymentSetup: deploymentSetupRouter,
@@ -47,7 +48,6 @@ export const viewerRouter = mergeRouters(
     slots: slotsRouter,
     workflows: workflowsRouter,
     saml: ssoRouter,
-    checkIns: checkInsRouter,
     dsync: dsyncRouter,
     insights: insightsRouter,
     payments: paymentsRouter,

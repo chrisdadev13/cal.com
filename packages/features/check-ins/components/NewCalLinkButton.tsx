@@ -1,8 +1,6 @@
-import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 
 import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { HttpError } from "@calcom/lib/http-error";
 import { trpc } from "@calcom/trpc/react";
 import {
   Button,
@@ -14,24 +12,22 @@ import {
   Form,
   InputField,
   SelectField,
-  showToast,
 } from "@calcom/ui";
 
-export function NewCalLinkButton({
-  name = "new-cal-link",
-  fromEventType,
-}: {
-  name?: string;
-  fromEventType?: boolean;
-}) {
-  const router = useRouter();
+export function NewCalLinkButton({ name = "new-cal-link" }: { name?: string }) {
   const { t } = useLocale();
 
   const form = useForm<{
     name: string;
-    tag: string;
+    tag: "Relative" | "Friend" | "Coworker";
     frequency: "Rarely" | "Often" | "Occasionally";
-  }>();
+  }>({
+    defaultValues: {
+      name: "",
+      tag: "Relative",
+      frequency: "Rarely",
+    },
+  });
   const { register } = form;
   //const utils = trpc.useUtils();
   const tagsOptions = [
@@ -64,21 +60,13 @@ export function NewCalLinkButton({
     },
   ];
 
-  const createMutation = trpc.viewer.checkIns.create.useMutation({
-    onSuccess: async () => {
-      router.refresh();
-      showToast("Cal link created successfully", "success");
+  const { mutate, isPending } = trpc.viewer.checkIns.create.useMutation({
+    onSuccess: async (values) => {
+      console.log(values);
+      return;
     },
-    onError: (err) => {
-      if (err instanceof HttpError) {
-        const message = `${err.statusCode}: ${err.message}`;
-        showToast(message, "error");
-      }
-
-      if (err.data?.code === "UNAUTHORIZED") {
-        const message = `${err.data.code}: ${t("error_schedule_unauthorized_create")}`;
-        showToast(message, "error");
-      }
+    onError: (errors) => {
+      console.error("Error", errors);
     },
   });
 
@@ -95,7 +83,8 @@ export function NewCalLinkButton({
         <Form
           form={form}
           handleSubmit={(values) => {
-            createMutation.mutate({
+            console.log(values);
+            mutate({
               calUrl: values.name,
               tag: values.tag,
               checkInFrequency: values.frequency,
@@ -118,7 +107,8 @@ export function NewCalLinkButton({
                   containerClassName="ml-2 mt-[22px]"
                   onChange={(option) => {
                     onChange(option?.value === "Rarely");
-                    if (option !== null) form.setValue("frequency", option.value);
+                    if (option !== null)
+                      form.setValue("frequency", option.value as "Rarely" | "Often" | "Occasionally");
                   }}
                   value={checkFrequencyOptions.find((tag) => tag.value === value)}
                   defaultValue={checkFrequencyOptions[0]}
@@ -145,7 +135,7 @@ export function NewCalLinkButton({
           />
           <DialogFooter>
             <DialogClose />
-            <Button type="submit" loading={createMutation.isPending}>
+            <Button type="submit" loading={isPending}>
               {t("continue")}
             </Button>
           </DialogFooter>
