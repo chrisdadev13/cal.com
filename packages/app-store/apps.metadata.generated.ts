@@ -9,6 +9,7 @@ import around_config_json from "./around/config.json";
 import autocheckin_config_json from "./autocheckin/config.json";
 import basecamp3_config_json from "./basecamp3/config.json";
 import cal_ai_config_json from "./cal-ai/config.json";
+import cal_share_config_json from "./cal-share/config.json";
 import { metadata as caldavcalendar__metadata_ts } from "./caldavcalendar/_metadata";
 import campfire_config_json from "./campfire/config.json";
 import clic_config_json from "./clic/config.json";
@@ -96,6 +97,7 @@ export const appStoreMetadata = {
   autocheckin: autocheckin_config_json,
   basecamp3: basecamp3_config_json,
   "cal-ai": cal_ai_config_json,
+  "cal-share": cal_share_config_json,
   caldavcalendar: caldavcalendar__metadata_ts,
   campfire: campfire_config_json,
   clic: clic_config_json,

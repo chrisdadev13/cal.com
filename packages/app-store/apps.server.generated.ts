@@ -10,6 +10,7 @@ export const apiHandlers = {
   autocheckin: import("./autocheckin/api"),
   basecamp3: import("./basecamp3/api"),
   "cal-ai": import("./cal-ai/api"),
+  "cal-share": import("./cal-share/api"),
   caldavcalendar: import("./caldavcalendar/api"),
   campfire: import("./campfire/api"),
   clic: import("./clic/api"),

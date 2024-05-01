@@ -1,0 +1,16 @@
+{
+  "/*": "Don't modify slug - If required, do it using cli edit command",
+  "name": "Cal Share",
+  "slug": "cal-share",
+  "type": "cal-share_other",
+  "logo": "icon-dark.svg",
+  "url": "https://example.com/link",
+  "variant": "other",
+  "categories": ["other"],
+  "publisher": "Chris Pacheco",
+  "email": "chrisdadev13@gmail.com",
+  "description": "Cal Share is a Cal.com exclusive browser extension that makes sharing your availability a smooth paste instead of a sticky situation",
+  "isTemplate": false,
+  "__createdUsingCli": true,
+  "__template": "link-as-an-app"
+}
